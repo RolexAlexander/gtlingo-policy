@@ -286,287 +286,201 @@
       box-shadow: 0 0px 0 var(--outline);
     }
 
-    /* Mockup Container (App Preview) */
+    /* Mockup Container (App Screenshots Showcase Carousel) */
     .mockup-container {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       position: relative;
     }
 
-    /* Pocket Device CSS Showcase */
     .device-shell {
-      width: 340px;
-      height: 640px;
-      background: var(--ink);
-      border-radius: 40px;
+      width: 320px;
+      height: 650px;
+      background: #14120f;
+      border-radius: 44px;
       padding: 12px;
-      border: 6px solid #2d261e;
-      box-shadow: var(--heavy-shadow), var(--gold-glow);
+      border: 5px solid #2d261e;
+      box-shadow: var(--heavy-shadow), 0 0 25px rgba(212, 176, 104, 0.25);
       position: relative;
       display: flex;
       flex-direction: column;
+      user-select: none;
+      transition: var(--transition-smooth);
     }
 
-    /* Brass Rim Details */
     .device-shell::after {
       content: '';
       position: absolute;
       top: -3px; left: -3px; right: -3px; bottom: -3px;
-      border-radius: 36px;
+      border-radius: 46px;
       border: 2px solid var(--gold-container);
       pointer-events: none;
-      opacity: 0.7;
+      opacity: 0.85;
     }
 
-    .device-speaker {
-      width: 60px;
-      height: 4px;
+    .device-notch {
+      width: 100px;
+      height: 18px;
+      background: #14120f;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      margin: 0 auto;
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .device-speaker-slit {
+      width: 36px;
+      height: 3px;
       background: #44372a;
       border-radius: 2px;
-      margin: 8px auto 16px auto;
+    }
+
+    .device-camera-lens {
+      width: 7px;
+      height: 7px;
+      background: #1a1714;
+      border: 1px solid #3d342a;
+      border-radius: 50%;
     }
 
     .device-screen {
       flex: 1;
-      background-color: var(--parchment-dark);
-      border-radius: 24px;
-      border: 3px double var(--outline);
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      background-color: #0d0c0a;
+      border-radius: 32px;
       overflow: hidden;
       position: relative;
+      border: 1px solid #3a3228;
     }
 
-    .device-header {
+    /* Screenshot Slides */
+    .screenshot-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .screenshot-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    /* Screen Overlay Caption Badge */
+    .slide-caption-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      background: rgba(30, 27, 22, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 176, 104, 0.4);
+      border-radius: 12px;
+      padding: 8px 12px;
+      color: var(--parchment);
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px dashed var(--outline);
-      padding-bottom: 0.5rem;
+      z-index: 10;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
-    .device-title {
-      font-family: 'Noto Serif', serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: var(--ink);
-    }
-
-    .device-signal {
-      display: flex;
-      gap: 3px;
-      align-items: center;
+    .caption-step {
       font-size: 0.7rem;
       font-weight: 800;
-      color: var(--madder-red); /* Indicates Offline Mode / Local Mode */
-      border: 1px solid var(--madder-red);
-      padding: 1px 4px;
-      border-radius: 3px;
+      letter-spacing: 1px;
       text-transform: uppercase;
+      color: var(--gold-container);
     }
 
-    /* Mode Selector Buttons */
-    .mode-selector {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-      background: var(--parchment-deep);
-      padding: 3px;
-      border-radius: 8px;
+    .caption-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    /* Navigation Arrows overlay on device sides */
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(30, 27, 22, 0.85);
+      border: 1px solid var(--gold-container);
+      color: var(--gold-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 15;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-arrow:hover {
+      background: var(--primary-gold);
+      color: var(--parchment);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .nav-arrow.prev { left: -16px; }
+    .nav-arrow.next { right: -16px; }
+
+    /* Flow Step Navigation Indicators below device */
+    .flow-indicators {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 340px;
+    }
+
+    .flow-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--outline-light);
       border: 1px solid var(--outline);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      padding: 0;
     }
 
-    .mode-btn {
-      border: none;
-      background: transparent;
-      padding: 0.4rem;
+    .flow-dot.active {
+      width: 24px;
+      border-radius: 10px;
+      background: var(--primary-gold);
+      border-color: var(--primary-gold);
+      box-shadow: var(--gold-glow);
+    }
+
+    .flow-step-label {
       font-size: 0.75rem;
       font-weight: 700;
-      color: var(--ink-muted);
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'Manrope', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: var(--transition-smooth);
-    }
-
-    .mode-btn.active {
-      background: var(--parchment);
-      color: var(--primary-gold);
-      box-shadow: 0 2px 4px rgba(30, 27, 22, 0.05);
-      border: 1px solid var(--outline-light);
-    }
-
-    /* Chat/Translation Interface */
-    .translation-flow {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .dialog-bubble {
-      background: var(--parchment);
-      border: 1px solid var(--outline);
-      border-radius: 12px;
-      padding: 0.85rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-      transition: var(--transition-smooth);
-      animation: fadeIn 0.4s ease-out;
-    }
-
-    .dialog-bubble.accent {
-      background: #FFFDF9;
-      border-width: 2px;
-      border-color: var(--primary-gold);
-      box-shadow: 0 4px 12px rgba(118, 90, 27, 0.05);
-    }
-
-    .bubble-lang {
-      font-size: 0.65rem;
-      font-weight: 800;
       color: var(--primary-gold);
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 0.25rem;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .bubble-lang-flag {
-      color: var(--ink-muted);
-      font-weight: 500;
-    }
-
-    .bubble-text {
-      font-size: 0.9rem;
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .dialog-bubble.accent .bubble-text {
-      font-family: 'Noto Serif', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      color: var(--primary-gold);
-    }
-
-    .bubble-translation-info {
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-      margin-top: 0.4rem;
-      border-top: 1px dashed var(--outline-light);
-      padding-top: 0.3rem;
-      font-style: normal;
-    }
-
-    /* Device Controls */
-    .device-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      padding-top: 0.75rem;
-      border-top: 1px dashed var(--outline);
-    }
-
-    .mic-button {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--brass-gradient);
-      border: 2px solid var(--ink);
-      box-shadow: 0 3px 0 var(--ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--parchment);
-      transition: var(--transition-smooth);
-    }
-
-    .mic-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 2px 0 var(--ink), var(--gold-glow);
-    }
-
-    .mic-button svg {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-    }
-
-    .play-audio-btn {
-      background: transparent;
-      border: none;
-      color: var(--primary-gold);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      border-radius: 50%;
-      transition: var(--transition-smooth);
-    }
-
-    .play-audio-btn:hover {
-      background: var(--parchment-deep);
-      color: var(--ink);
-    }
-
-    .play-audio-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    /* Interactive Translation Switcher */
-    .interactive-panel {
-      border: 1px dashed var(--outline);
-      background: var(--parchment-dark);
-      padding: 0.75rem;
-      border-radius: 12px;
       margin-top: 0.5rem;
-    }
-
-    .interactive-label {
-      font-size: 0.75rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--ink-muted);
-      margin-bottom: 0.4rem;
       text-align: center;
-    }
-
-    .switcher-chips {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .chip {
-      background: var(--parchment);
-      border: 1px solid var(--outline-light);
-      padding: 0.25rem 0.6rem;
-      border-radius: 99px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--ink-muted);
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .chip.active {
-      background: var(--primary-gold);
-      color: var(--parchment);
-      border-color: var(--primary-gold);
     }
 
     /* Key Features Section */
@@ -969,74 +883,51 @@
       </div>
     </div>
 
-    <!-- Live Interactive CSS App Showcase -->
-    <div class="mockup-container">
-      <div class="device-shell">
-        <div class="device-speaker"></div>
-        <div class="device-screen">
-          <div class="device-header">
-            <span class="device-title">GTLingo Offline v1.0</span>
-            <span class="device-signal">Local AI</span>
-          </div>
+    <!-- Live Interactive App Screenshots Showcase Carousel -->
+    <div class="mockup-container" id="hero-carousel-container">
+      <div class="device-shell" title="GTLingo App Flow - Hover to Pause">
+        <div class="device-notch">
+          <div class="device-speaker-slit"></div>
+          <div class="device-camera-lens"></div>
+        </div>
+        
+        <div class="device-screen" id="device-screen-container">
+          <!-- 9 App Screenshots in Chronological Flow -->
+          <img src="../assets/screenshots/1_splash.jpg" alt="1. GTLingo Splash Screen" class="screenshot-slide active" data-step="1/9" data-title="1. Splash & Branding">
+          <img src="../assets/screenshots/2_onboarding_speak.jpg" alt="2. Onboarding: Speak Naturally" class="screenshot-slide" data-step="2/9" data-title="2. Speak Naturally">
+          <img src="../assets/screenshots/3_onboarding_offline.jpg" alt="3. Onboarding: Fully Offline" class="screenshot-slide" data-step="3/9" data-title="3. Fully Offline">
+          <img src="../assets/screenshots/4_onboarding_start.jpg" alt="4. Onboarding: Minimal Design" class="screenshot-slide" data-step="4/9" data-title="4. Minimal Design">
+          <img src="../assets/screenshots/5_engine_init.jpg" alt="5. Local Engine Initialization" class="screenshot-slide" data-step="5/9" data-title="5. Gemma AI Engine Init">
+          <img src="../assets/screenshots/6_translate.jpg" alt="6. Main Translator Screen" class="screenshot-slide" data-step="6/9" data-title="6. Voice & Text Translator">
+          <img src="../assets/screenshots/7_phrasebook.jpg" alt="7. Creolese Phrasebook" class="screenshot-slide" data-step="7/9" data-title="7. Creolese Lexicon">
+          <img src="../assets/screenshots/8_history.jpg" alt="8. Translation History Log" class="screenshot-slide" data-step="8/9" data-title="8. Explorer's History Log">
+          <img src="../assets/screenshots/9_preferences.jpg" alt="9. Preferences & Settings" class="screenshot-slide" data-step="9/9" data-title="9. Preferences & Options">
 
-          <div class="mode-selector">
-            <button class="mode-btn active" id="mode-single">Single Mode</button>
-            <button class="mode-btn" id="mode-dual">Dual Mode</button>
-          </div>
-
-          <div class="translation-flow">
-            <!-- Source speech bubble -->
-            <div class="dialog-bubble">
-              <div class="bubble-lang">
-                <span id="source-lang-label">ENGLISH</span>
-                <span class="bubble-lang-flag" id="source-flag">🇬🇾/🇺🇸</span>
-              </div>
-              <div class="bubble-text" id="source-text">Good morning! How are you doing today?</div>
-            </div>
-
-            <!-- Target translation bubble -->
-            <div class="dialog-bubble accent">
-              <div class="bubble-lang">
-                <span>GUYANESE CREOLE</span>
-                <span class="bubble-lang-flag">🇬🇾</span>
-              </div>
-              <div class="bubble-text" id="target-text">Wam to yuh? How yuh doin' today?</div>
-              <div class="bubble-translation-info" id="target-note">
-                Literal: "What happened to you?" / Common casual greeting.
-              </div>
-            </div>
-          </div>
-
-          <!-- Interactive translation selection chips -->
-          <div class="interactive-panel">
-            <p class="interactive-label">Select Translation Example</p>
-            <div class="switcher-chips" role="tablist">
-              <button class="chip active" id="chip-1" role="tab" aria-selected="true">Greeting</button>
-              <button class="chip" id="chip-2" role="tab" aria-selected="false">Casual</button>
-              <button class="chip" id="chip-3" role="tab" aria-selected="false">Everything Criss</button>
-              <button class="chip" id="chip-4" role="tab" aria-selected="false">Farewell</button>
-            </div>
-          </div>
-
-          <div class="device-controls">
-            <!-- Audio play button -->
-            <button class="play-audio-btn" id="btn-play-audio" title="Play Pronunciation" aria-label="Play Pronunciation">
-              <svg viewBox="0 0 24 24">
-                <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-              </svg>
-            </button>
-            
-            <!-- Mic button -->
-            <div class="mic-button" id="btn-mock-mic" title="Speak to Translate" aria-label="Speak to Translate">
-              <svg viewBox="0 0 24 24">
-                <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z" />
-              </svg>
-            </div>
-            
-            <div style="width: 26px;"></div> <!-- Spacer matching layout -->
+          <!-- Dynamic Caption Bar Overlay -->
+          <div class="slide-caption-bar">
+            <span class="caption-step" id="carousel-caption-step">1/9</span>
+            <span class="caption-title" id="carousel-caption-title">1. Splash & Branding</span>
           </div>
         </div>
+
+        <!-- Next / Prev Controls -->
+        <button class="nav-arrow prev" id="carousel-btn-prev" title="Previous Screen" aria-label="Previous Screen">‹</button>
+        <button class="nav-arrow next" id="carousel-btn-next" title="Next Screen" aria-label="Next Screen">›</button>
       </div>
+
+      <!-- Flow Indicators & Label -->
+      <div class="flow-indicators" id="flow-indicators-container" role="tablist" aria-label="App Flow Screenshots">
+        <button class="flow-dot active" data-index="0" title="Step 1: Splash" aria-label="Step 1: Splash"></button>
+        <button class="flow-dot" data-index="1" title="Step 2: Speak Naturally" aria-label="Step 2: Speak Naturally"></button>
+        <button class="flow-dot" data-index="2" title="Step 3: Fully Offline" aria-label="Step 3: Fully Offline"></button>
+        <button class="flow-dot" data-index="3" title="Step 4: Minimal Design" aria-label="Step 4: Minimal Design"></button>
+        <button class="flow-dot" data-index="4" title="Step 5: Engine Init" aria-label="Step 5: Engine Init"></button>
+        <button class="flow-dot" data-index="5" title="Step 6: Translator" aria-label="Step 6: Translator"></button>
+        <button class="flow-dot" data-index="6" title="Step 7: Phrasebook" aria-label="Step 7: Phrasebook"></button>
+        <button class="flow-dot" data-index="7" title="Step 8: History Log" aria-label="Step 8: History Log"></button>
+        <button class="flow-dot" data-index="8" title="Step 9: Preferences" aria-label="Step 9: Preferences"></button>
+      </div>
+      <div class="flow-step-label" id="flow-step-label">App Flow • 1 of 9</div>
     </div>
   </section>
 
@@ -1234,31 +1125,11 @@
     </div>
   </footer>
 
-  <!-- Script for Interactive Translation Showcase -->
+  <!-- Script for Hero App Screenshots Showcase Carousel -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Elements
+      // Header scroll effect
       const header = document.getElementById('main-header');
-      const modeBtnSingle = document.getElementById('mode-single');
-      const modeBtnDual = document.getElementById('mode-dual');
-      
-      const sourceLangLabel = document.getElementById('source-lang-label');
-      const sourceFlag = document.getElementById('source-flag');
-      const sourceText = document.getElementById('source-text');
-      const targetText = document.getElementById('target-text');
-      const targetNote = document.getElementById('target-note');
-      
-      const chips = [
-        document.getElementById('chip-1'),
-        document.getElementById('chip-2'),
-        document.getElementById('chip-3'),
-        document.getElementById('chip-4')
-      ];
-
-      const btnPlayAudio = document.getElementById('btn-play-audio');
-      const btnMockMic = document.getElementById('btn-mock-mic');
-
-      // Scroll effect for header
       window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
           header.classList.add('scrolled');
@@ -1267,132 +1138,100 @@
         }
       });
 
-      // Sample Data mapping
-      const translationData = {
-        'chip-1': {
-          sourceLang: 'ENGLISH',
-          sourceFlag: '🇬🇾/🇺🇸',
-          source: 'Good morning! How are you doing today?',
-          target: 'Wam to yuh? How yuh doin\' today?',
-          note: 'Literal: "What happened to you?" / Common casual greeting.'
-        },
-        'chip-2': {
-          sourceLang: 'ENGLISH',
-          sourceFlag: '🇬🇾/🇺🇸',
-          source: 'See you later, take care of yourself.',
-          target: 'Walk good.',
-          note: 'Meaning: Farewell. Idiomatic Guyanese Creole for a safe journey.'
-        },
-        'chip-3': {
-          sourceLang: 'SPANISH',
-          sourceFlag: '🇪🇸/🇻🇪',
-          source: '¡Hola! Todo está excelente por aquí.',
-          target: 'Wam! Everything criss.',
-          note: 'Literal translation from Spanish. "Criss" means crisp, clean, or great.'
-        },
-        'chip-4': {
-          sourceLang: 'SPANISH',
-          sourceFlag: '🇪🇸/🇻🇪',
-          source: '¿Cómo estás amigo? ¿Todo bien?',
-          target: 'How yuh doin\' buddy? Everything criss?',
-          note: 'Friendly casual translation between Spanish and Guyanese Creolese.'
-        }
-      };
+      // Screenshots Carousel Logic
+      const carouselSlides = document.querySelectorAll('.screenshot-slide');
+      const flowDots = document.querySelectorAll('.flow-dot');
+      const captionStep = document.getElementById('carousel-caption-step');
+      const captionTitle = document.getElementById('carousel-caption-title');
+      const flowStepLabel = document.getElementById('flow-step-label');
+      const btnPrev = document.getElementById('carousel-btn-prev');
+      const btnNext = document.getElementById('carousel-btn-next');
+      const heroContainer = document.getElementById('hero-carousel-container');
 
-      // Set active chip translation handler
-      function activateTranslation(chipId) {
-        chips.forEach(chip => {
-          if (chip.id === chipId) {
-            chip.classList.add('active');
-            chip.setAttribute('aria-selected', 'true');
+      let currentSlide = 0;
+      let slideInterval = null;
+
+      function showSlide(index) {
+        if (index < 0) index = carouselSlides.length - 1;
+        if (index >= carouselSlides.length) index = 0;
+
+        currentSlide = index;
+
+        carouselSlides.forEach((slide, i) => {
+          if (i === currentSlide) {
+            slide.classList.add('active');
+            if (captionStep) captionStep.textContent = slide.dataset.step || `${i + 1}/${carouselSlides.length}`;
+            if (captionTitle) captionTitle.textContent = slide.dataset.title || `Screen ${i + 1}`;
+            if (flowStepLabel) flowStepLabel.textContent = `App Flow • ${currentSlide + 1} of ${carouselSlides.length}`;
           } else {
-            chip.classList.remove('active');
-            chip.setAttribute('aria-selected', 'false');
+            slide.classList.remove('active');
           }
         });
 
-        const data = translationData[chipId];
-        if (data) {
-          // Visual fade out
-          sourceText.style.opacity = 0.3;
-          targetText.style.opacity = 0.3;
-          targetNote.style.opacity = 0.3;
+        flowDots.forEach((dot, i) => {
+          if (i === currentSlide) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
 
-          setTimeout(() => {
-            sourceLangLabel.textContent = data.sourceLang;
-            sourceFlag.textContent = data.sourceFlag;
-            sourceText.textContent = data.source;
-            targetText.textContent = data.target;
-            targetNote.textContent = data.note;
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
 
-            // Fade back in
-            sourceText.style.opacity = 1;
-            targetText.style.opacity = 1;
-            targetNote.style.opacity = 1;
-          }, 150);
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        slideInterval = setInterval(nextSlide, 3500);
+      }
+
+      function stopAutoPlay() {
+        if (slideInterval) {
+          clearInterval(slideInterval);
+          slideInterval = null;
         }
       }
 
-      // Add click listeners to chips
-      chips.forEach(chip => {
-        chip.addEventListener('click', () => {
-          activateTranslation(chip.id);
+      // Button listeners
+      if (btnNext) {
+        btnNext.addEventListener('click', (e) => {
+          e.preventDefault();
+          nextSlide();
+          startAutoPlay();
+        });
+      }
+
+      if (btnPrev) {
+        btnPrev.addEventListener('click', (e) => {
+          e.preventDefault();
+          prevSlide();
+          startAutoPlay();
+        });
+      }
+
+      // Indicator Dots listeners
+      flowDots.forEach((dot, i) => {
+        dot.addEventListener('click', (e) => {
+          e.preventDefault();
+          showSlide(i);
+          startAutoPlay();
         });
       });
 
-      // Dual/Single mode toggle visual demo
-      modeBtnSingle.addEventListener('click', () => {
-        modeBtnSingle.classList.add('active');
-        modeBtnDual.classList.remove('active');
-        // Reset translation flow styling to standard
-        document.querySelector('.translation-flow').style.flexDirection = 'column';
-      });
+      // Pause on hover
+      if (heroContainer) {
+        heroContainer.addEventListener('mouseenter', stopAutoPlay);
+        heroContainer.addEventListener('mouseleave', startAutoPlay);
+      }
 
-      modeBtnDual.addEventListener('click', () => {
-        modeBtnDual.classList.add('active');
-        modeBtnSingle.classList.remove('active');
-        // Demo notice for dual mode (e.g. simulate screen splitting or simple styling shift)
-        alert('Dual Mode splits the phone screen in half, allowing two people to stand face-to-face and translate conversations live!');
-        modeBtnSingle.classList.add('active');
-        modeBtnDual.classList.remove('active');
-      });
-
-      // Mic action mock
-      btnMockMic.addEventListener('click', () => {
-        btnMockMic.style.backgroundColor = '#BA1A1A'; // Madder Red pulse
-        const originalText = sourceText.textContent;
-        const originalTarget = targetText.textContent;
-        
-        sourceText.textContent = 'Listening offline...';
-        targetText.textContent = 'Processing locally...';
-        targetNote.textContent = 'Decoding phonetic audio on device via ONNX...';
-
-        setTimeout(() => {
-          btnMockMic.style.backgroundColor = '';
-          sourceText.textContent = originalText;
-          targetText.textContent = originalTarget;
-          // Find active chip and restore note
-          const activeChip = document.querySelector('.chip.active');
-          targetNote.textContent = translationData[activeChip.id].note;
-        }, 1200);
-      });
-
-      // Play audio action mock
-      btnPlayAudio.addEventListener('click', () => {
-        btnPlayAudio.style.transform = 'scale(1.2)';
-        
-        // Use browser SpeechSynthesis if available to say the target text as a neat easter egg!
-        if ('speechSynthesis' in window) {
-          const utterance = new SpeechSynthesisUtterance(targetText.textContent);
-          utterance.lang = 'en-GY'; // Try English/Caribbean sound
-          utterance.rate = 0.85; // Speak slower for Creole cadence
-          window.speechSynthesis.speak(utterance);
-        }
-
-        setTimeout(() => {
-          btnPlayAudio.style.transform = '';
-        }, 300);
-      });
+      // Initialize
+      showSlide(0);
+      startAutoPlay();
     });
   </script>
 </body>
